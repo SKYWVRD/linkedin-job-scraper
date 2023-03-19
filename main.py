@@ -52,3 +52,7 @@ def get_jobs(position: str, location: str):
     job_dict = extract_jobs(job_listings_elements)
     for job in job_dict:
         print(job)
+
+
+if __name__ == "__main__":
+    get_jobs('Data Engineer', 'Ireland')
