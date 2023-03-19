@@ -6,7 +6,23 @@ URL = 'https://www.linkedin.com/jobs/search?keywords=Data%20Engineer&location=Ir
 page = requests.get(URL)
 
 soup = BeautifulSoup(page.content, "html.parser")
-results = soup.find_all("h3",class_="base-search-card__title")
+results = soup.find_all('li')
+job_listings = []
 
 for result in results:
-    print(result.contents[0].strip())
+    try:
+        job_title = result.find('h3', class_="base-search-card__title")
+        job_recruiter = result.find('a', class_="hidden-nested-link")
+        job_location = result.find('span', class_="job-search-card__location")
+        job_title = job_title.contents[0].strip()
+        job_recruiter = job_recruiter.contents[0].strip()
+        job_location = job_location.contents[0].strip()
+        job_listings.append({"title": job_title, "recruiter": job_recruiter, "location": job_location})
+
+    except Exception as e:
+        print(e)
+        continue
+
+
+for job in job_listings:
+    print(job)
