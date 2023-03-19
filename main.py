@@ -6,7 +6,8 @@ URL = 'https://www.linkedin.com/jobs/search?keywords=Data%20Engineer&location=Ir
 page = requests.get(URL)
 
 soup = BeautifulSoup(page.content, "html.parser")
-results = soup.find_all('li')
+results = soup.find('ul', class_='jobs-search__results-list')
+results = results.find_all('li')
 job_listings = []
 
 for result in results:
